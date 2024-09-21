@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アキネーター国版（ヨーロッパ）</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .answer {
+            margin-bottom: 10px;
+        }
+        #result {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>ヨーロッパの国を当ててみよう！</h1>
+    <div class="question" id="question">この国はEUに加盟していますか？</div>
+    <div class="answer">
+        <button onclick="answer('yes')">はい</button>
+        <button onclick="answer('no')">いいえ</button>
+    </div>
+    <div id="result"></div>
+
+    <script>
+        const questions = [
+            { 
+                text: "この国はEUに加盟していますか？", 
+                yes: "次の質問へ", 
+                no: "次の質問へ", 
+                nextYes: 1, 
+                nextNo: 10
+            },
+            { 
+                text: "この国は北欧にありますか？", 
+                yes: "次の質問へ", 
+                no: "次の質問へ", 
+                nextYes: 2, 
+                nextNo: 4
+            },
+            { 
+                text: "この国はノルウェーですか？", 
+                yes: "ノルウェー", 
+                no: "次の質問へ", 
+                nextNo: 3
+            },
+            { 
+                text: "この国はスウェーデンですか？", 
+                yes: "スウェーデン", 
+                no: "フィンランド"
+            },
+            { 
+                text: "この国は西ヨーロッパにありますか？", 
+                yes: "次の質問へ", 
+                no: "次の質問へ", 
+                nextYes: 5, 
+                nextNo: 6
+            },
+            { 
+                text: "この国はフランス語が公用語ですか？", 
+                yes: "フランス", 
+                no: "次の質問へ", 
+                nextNo: 7
+            },
+            { 
+                text: "この国はドイツ語が公用語ですか？", 
+                yes: "ドイツ", 
+                no: "スペイン"
+            },
+            { 
+                text: "この国はバルカン半島にありますか？", 
+                yes: "次の質問へ", 
+                no: "次の質問へ", 
+                nextYes: 8, 
+                nextNo: 9
+            },
+            { 
+                text: "この国はギリシャですか？", 
+                yes: "ギリシャ", 
+                no: "セルビア"
+            },
+            { 
+                text: "この国はイギリスですか？", 
+                yes: "イギリス", 
+                no: "次の質問へ", 
+                nextNo: 11
+            },
+            { 
+                text: "この国はスイスですか？", 
+                yes: "スイス", 
+                no: "ノルウェー"
+            }
+        ];
+
+        let currentQuestion = 0;
+
+        function answer(response) {
+            const resultDiv = document.getElementById('result');
+            const questionData = questions[currentQuestion];
+
+            // 次の質問へ進むか、結果を表示するか
+            if (response === 'yes') {
+                if (questionData.nextYes !== undefined) {
+                    currentQuestion = questionData.nextYes;
+                    document.getElementById('question').textContent = questions[currentQuestion].text;
+                } else {
+                    resultDiv.textContent = questionData.yes;
+                }
+            } else {
+                if (questionData.nextNo !== undefined) {
+                    currentQuestion = questionData.nextNo;
+                    document.getElementById('question').textContent = questions[currentQuestion].text;
+                } else {
+                    resultDiv.textContent = questionData.no;
+                }
+            }
+        }
+    </script>
+</body>
+</html>
